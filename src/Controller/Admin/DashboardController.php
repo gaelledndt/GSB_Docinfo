@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Role;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -41,7 +42,7 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTitle('Gsb - Application Médicale')
-            ->setLocales(['en']);
+            ->setLocales(['en', 'fr']);
     }
 
     public function configureMenuItems(): iterable
@@ -50,10 +51,15 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::linkToUrl('Retour à l\' app', 'fa fa-return', '/');
 
+        /*              ROLES               */
         yield MenuItem::section('Gestion des roles', 'fa-brands fa-critical-role');
         yield MenuItem::subMenu('Roles', 'fa-solid fa-right-long')->setSubItems([
             MenuItem::linkToCrud('Liste des roles', 'fa fa-list', Role::class),
         ]);
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        /*              USERS               */
+        yield MenuItem::section('Gestion des utilisateurs', 'fa-solid fa-users');
+        yield MenuItem::subMenu('Utilisateurs', 'fa-solid fa-right-long')->setSubItems([
+            MenuItem::linkToCrud('Liste des utilisateurs', 'fa fa-list', User::class),
+        ]);
     }
 }
