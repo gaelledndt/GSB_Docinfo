@@ -26,6 +26,12 @@ class HealthStatus
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'healthStatuses')]
+    private ?Status $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'healthStatuses')]
+    private ?CareSummary $care_summary = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +81,30 @@ class HealthStatus
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCareSummary(): ?CareSummary
+    {
+        return $this->care_summary;
+    }
+
+    public function setCareSummary(?CareSummary $care_summary): self
+    {
+        $this->care_summary = $care_summary;
 
         return $this;
     }

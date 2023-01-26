@@ -29,6 +29,12 @@ class TestResults
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $comment = null;
 
+    #[ORM\ManyToOne(inversedBy: 'testResults')]
+    private ?CareSummary $care_summary = null;
+
+    #[ORM\ManyToOne(inversedBy: 'testResults')]
+    private ?TestResultType $test_result_type = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +96,30 @@ class TestResults
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getCareSummary(): ?CareSummary
+    {
+        return $this->care_summary;
+    }
+
+    public function setCareSummary(?CareSummary $care_summary): self
+    {
+        $this->care_summary = $care_summary;
+
+        return $this;
+    }
+
+    public function getTestResultType(): ?TestResultType
+    {
+        return $this->test_result_type;
+    }
+
+    public function setTestResultType(?TestResultType $test_result_type): self
+    {
+        $this->test_result_type = $test_result_type;
 
         return $this;
     }

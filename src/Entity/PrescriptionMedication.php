@@ -29,6 +29,9 @@ class PrescriptionMedication
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $end_medication = null;
 
+    #[ORM\ManyToOne(inversedBy: 'prescriptionMedications')]
+    private ?Prescription $prescription = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class PrescriptionMedication
     public function setEndMedication(?\DateTimeInterface $end_medication): self
     {
         $this->end_medication = $end_medication;
+
+        return $this;
+    }
+
+    public function getPrescription(): ?Prescription
+    {
+        return $this->prescription;
+    }
+
+    public function setPrescription(?Prescription $prescription): self
+    {
+        $this->prescription = $prescription;
 
         return $this;
     }

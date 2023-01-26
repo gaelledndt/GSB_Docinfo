@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StatusRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,15 @@ class Status
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
+
+    #[ORM\OneToMany(mappedBy: 'status', targetEntity: HealthStatus::class)]
+    private Collection $healthStatuses;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+        $this->healthStatuses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -62,5 +73,40 @@ class Status
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, HealthStatus>
+     */
+    public function getHealthStatuses(): Collection
+    {
+        return $this->healthStatuses;
+    }
+
+    public function addHealthStatus(HealthStatus $healthStatus): self
+    {
+        if (!$this->healthStatuses->contains($healthStatus)) {
+            $this->healthStatuses->add($healthStatus);
+            $healthStatus->setStatus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHealthStatus(HealthStatus $healthStatus): self
+    {
+        if ($this->healthStatuses->removeElement($healthStatus)) {
+            // set the owning side to null (unless already changed)
+            if ($healthStatus->getStatus() === $this) {
+                $healthStatus->setStatus(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->status;
     }
 }

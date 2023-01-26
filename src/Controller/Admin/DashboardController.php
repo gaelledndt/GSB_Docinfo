@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\CareSummary;
 use App\Entity\Role;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -60,6 +61,11 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Gestion des utilisateurs', 'fa-solid fa-users');
         yield MenuItem::subMenu('Utilisateurs', 'fa-solid fa-right-long')->setSubItems([
             MenuItem::linkToCrud('Liste des utilisateurs', 'fa fa-list', User::class),
+        ]);
+        /*              CareSummary               */
+        yield MenuItem::section('Gestion des fiches de renseignement', 'fa fa-child');
+        yield MenuItem::subMenu('Fiches de renseignements', 'fa-solid fa-right-long')->setSubItems([
+            MenuItem::linkToCrud('Liste des fiches de renseignements', 'fa fa-list', CareSummary::class),
         ]);
     }
 }

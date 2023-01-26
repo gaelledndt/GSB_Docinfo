@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\TestResultType;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -51,7 +52,11 @@ class UserFixtures extends Fixture
     public function getDependencies(): array
     {
         return [
-            RoleFixtures::class
+            RoleFixtures::class,
+            GenderFixtures::class,
+            TestResultTypeFixtures::class,
+            AllergenicFixtures::class,
+            StatusFixtures::class,
         ];
     }
 

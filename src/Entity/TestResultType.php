@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TestResultTypeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,15 @@ class TestResultType
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
+
+    #[ORM\OneToMany(mappedBy: 'test_result_type', targetEntity: TestResults::class)]
+    private Collection $testResults;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+        $this->testResults = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,6 +71,36 @@ class TestResultType
     public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TestResults>
+     */
+    public function getTestResults(): Collection
+    {
+        return $this->testResults;
+    }
+
+    public function addTestResult(TestResults $testResult): self
+    {
+        if (!$this->testResults->contains($testResult)) {
+            $this->testResults->add($testResult);
+            $testResult->setTestResultType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTestResult(TestResults $testResult): self
+    {
+        if ($this->testResults->removeElement($testResult)) {
+            // set the owning side to null (unless already changed)
+            if ($testResult->getTestResultType() === $this) {
+                $testResult->setTestResultType(null);
+            }
+        }
 
         return $this;
     }
