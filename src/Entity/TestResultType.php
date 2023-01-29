@@ -20,7 +20,7 @@ class TestResultType
     private ?string $type = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    private ?\DateTimeInterface $created_at;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
@@ -103,5 +103,9 @@ class TestResultType
         }
 
         return $this;
+    }
+
+    public function __toString() {
+        return $this->type;
     }
 }

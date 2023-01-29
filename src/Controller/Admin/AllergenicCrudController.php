@@ -14,7 +14,6 @@ class AllergenicCrudController extends AbstractCrudController
         return Allergenic::class;
     }
 
-
     public function configureFields(string $pageName): iterable
     {
         return [

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -91,5 +92,13 @@ class UserCrudController extends AbstractCrudController
             $hash = $this->userPasswordHasher->hashPassword($user, $password);
             $form->getData()->setPassword($hash);
         };
+    }
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        if(!$entityInstance instanceof User) return;
+
+        $entityInstance->setUpdatedAt(new \DateTimeImmutable());
+
+        parent::updateEntity($entityManager, $entityInstance);
     }
 }

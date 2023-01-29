@@ -18,7 +18,7 @@ class HealthStatus
     private ?string $disease = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    private ?\DateTimeInterface $created_at;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
@@ -32,6 +32,10 @@ class HealthStatus
     #[ORM\ManyToOne(inversedBy: 'healthStatuses')]
     private ?CareSummary $care_summary = null;
 
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+    }
     public function getId(): ?int
     {
         return $this->id;

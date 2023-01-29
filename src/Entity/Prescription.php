@@ -20,7 +20,7 @@ class Prescription
     private ?\DateTimeInterface $end_date = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    private ?\DateTimeInterface $created_at;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
@@ -33,6 +33,7 @@ class Prescription
 
     public function __construct()
     {
+        $this->created_at = new \DateTimeImmutable();
         $this->prescriptionMedications = new ArrayCollection();
     }
 
@@ -117,5 +118,10 @@ class Prescription
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->care_summary;
     }
 }

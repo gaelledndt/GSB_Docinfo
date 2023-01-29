@@ -2,8 +2,16 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Allergenic;
 use App\Entity\CareSummary;
+use App\Entity\Gender;
+use App\Entity\HealthStatus;
+use App\Entity\Prescription;
+use App\Entity\PrescriptionMedication;
 use App\Entity\Role;
+use App\Entity\Status;
+use App\Entity\TestResults;
+use App\Entity\TestResultType;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -25,8 +33,17 @@ class DashboardController extends AbstractDashboardController
     {
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
-        return $this->redirect($this->adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
+        if ($this->getUser() === null){
+            return $this->redirect('/login');
+        }elseif ($this->getUser()->getRole()->getSlug() !== 'medecin' ||
+            $this->getUser()->getRole()->getSlug() !== 'infirmer'
+        )
+        {
+            return $this->redirect('/');
+        }else{
+            return $this->redirect($this->adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
 
+        }
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
         // if ('jane' === $this->getUser()->getUsername()) {
@@ -67,5 +84,36 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Fiches de renseignements', 'fa-solid fa-right-long')->setSubItems([
             MenuItem::linkToCrud('Liste des fiches de renseignements', 'fa fa-list', CareSummary::class),
         ]);
+        /*              Allergenic               */
+        yield MenuItem::section('Gestion des Allergies', 'fa fa-child');
+        yield MenuItem::subMenu('Fiches des allergies', 'fa-solid fa-right-long')->setSubItems([
+            MenuItem::linkToCrud('Liste des fiches de allergies', 'fa fa-list', Allergenic::class),
+        ]);
+        /*              Health Status  & Status             */
+        yield MenuItem::section("Gestion de l'état de santé", 'fa fa-child');
+        yield MenuItem::subMenu('Fiches des états', 'fa-solid fa-right-long')->setSubItems([
+            MenuItem::linkToCrud("Liste des états de santé", 'fa fa-list', HealthStatus::class),
+            MenuItem::linkToCrud('Liste des status', 'fa fa-list', Status::class),
+        ]);
+        /*              Presciption   &  Prescription Medication                 */
+        yield MenuItem::section('Gestion des Prescription', 'fa fa-child');
+        yield MenuItem::subMenu('Fiches des prescriptions', 'fa-solid fa-right-long')->setSubItems([
+            MenuItem::linkToCrud('Liste des prescriptions', 'fa fa-list', Prescription::class),
+            MenuItem::linkToCrud('Liste des prescritpions médicales', 'fa fa-list', PrescriptionMedication::class),
+
+        ]);
+        /*              Gender               */
+        yield MenuItem::section('Gestion des Genre', 'fa fa-child');
+        yield MenuItem::subMenu('Fiches des genre', 'fa-solid fa-right-long')->setSubItems([
+            MenuItem::linkToCrud('Liste des genre', 'fa fa-list', Gender::class),
+        ]);
+        /*              Test Result     &  Test Result Type                 */
+        yield MenuItem::section('Gestion des résultats de test', 'fa fa-child');
+        yield MenuItem::subMenu('Fiches des résultats de test', 'fa-solid fa-right-long')->setSubItems([
+            MenuItem::linkToCrud('Liste des résultats de test', 'fa fa-list', TestResults::class),
+            MenuItem::linkToCrud('Liste des types de test', 'fa fa-list', TestResultType::class),
+
+        ]);
+
     }
 }

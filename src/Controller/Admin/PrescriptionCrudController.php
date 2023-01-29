@@ -5,7 +5,11 @@ namespace App\Controller\Admin;
 use App\Entity\Prescription;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 
 class PrescriptionCrudController extends AbstractCrudController
 {
@@ -19,8 +23,10 @@ class PrescriptionCrudController extends AbstractCrudController
         return [
             IdField::new('id')
                 ->hideOnForm(),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            DateTimeField::new('end_date')
+            ->setLabel('Fin de la prescription'),
+            AssociationField::new('care_summary')
+            ->setLabel('Patient'),
         ];
     }
 

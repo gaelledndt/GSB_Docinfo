@@ -18,7 +18,7 @@ class Allergenic
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: CareSummary::class, mappedBy: 'Allergenic')]
+    #[ORM\ManyToMany(targetEntity: CareSummary::class, mappedBy: 'allergenic')]
     private Collection $careSummaries;
 
     public function __construct()

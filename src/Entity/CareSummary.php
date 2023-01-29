@@ -32,9 +32,9 @@ class CareSummary
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    private ?\DateTimeInterface $created_at;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
 
     #[ORM\OneToOne(inversedBy: 'careSummary', cascade: ['persist', 'remove'])]
@@ -53,7 +53,7 @@ class CareSummary
     #[ORM\OneToMany(mappedBy: 'care_summary', targetEntity: Prescription::class)]
     private Collection $prescriptions;
 
-    #[ORM\ManyToMany(targetEntity: allergenic::class, inversedBy: 'careSummaries')]
+    #[ORM\ManyToMany(targetEntity: Allergenic::class, inversedBy: 'careSummaries',  cascade: ['persist'])]
     private Collection $allergenic;
 
     #[ORM\OneToMany(mappedBy: 'care_summary', targetEntity: TestResults::class)]
@@ -309,6 +309,6 @@ class CareSummary
 
     public function __toString()
     {
-        return $this->firstname . $this->lastname;
+        return $this->firstname . ' ' . $this->lastname;
     }
 }

@@ -15,7 +15,7 @@ class TestResults
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    private ?\DateTimeInterface $created_at;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
@@ -34,6 +34,11 @@ class TestResults
 
     #[ORM\ManyToOne(inversedBy: 'testResults')]
     private ?TestResultType $test_result_type = null;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -123,4 +128,5 @@ class TestResults
 
         return $this;
     }
+
 }

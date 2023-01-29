@@ -21,7 +21,7 @@ class PrescriptionMedication
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    private ?\DateTimeInterface $created_at;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
@@ -31,6 +31,11 @@ class PrescriptionMedication
 
     #[ORM\ManyToOne(inversedBy: 'prescriptionMedications')]
     private ?Prescription $prescription = null;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -107,5 +112,10 @@ class PrescriptionMedication
         $this->prescription = $prescription;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->medication;
     }
 }
