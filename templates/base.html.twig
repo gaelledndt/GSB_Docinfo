@@ -11,9 +11,12 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('reactjs') }}
+
         {% endblock %}
     </head>
     <body>
+        <div id="root"></div>
         {% block body %}{% endblock %}
     </body>
 </html>

@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use function Symfony\Component\Translation\t;
 
 class AllergenicForm extends AbstractType
 {
@@ -24,18 +25,13 @@ class AllergenicForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
+        $choices = ['Option 1', 'Option 2', 'Option 3'];
         $builder
             ->add('name', ChoiceType::class, [
-                'choices' => [
-                    "Acariens" => "23",
-                    "Chat" => "25",
-                    "Noix" => "29"],])
-        ;
+                'choices' => $choices,
+                'multiple' => true,
+            ]);
     }
-
-
-
 
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -43,7 +39,7 @@ class AllergenicForm extends AbstractType
             'data_class' => Allergenic::class,
         ]);
     }
-    private function getChoices()
+    private function getChoices(): array
     {
         $allergenic = $this->manager->getRepository(Allergenic::class)->findAll();
         $choices = [];
