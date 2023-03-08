@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Repository\AllergenicRepository;
+use App\Repository\HealthStatusRepository;
 use App\Repository\UserRepository;
+use ContainerBuZe7gi\getPrescriptionMedicationCrudControllerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +29,7 @@ class ApiDashboardController extends AbstractController
     }
     #[Route('/api/login', name: 'app_api_dashboard_login', methods: ["POST"])]
     public function apiLogin(Request $request,
-                             UserRepository $userRepository): Response
+                             UserRepository $userRepository, AllergenicRepository $allergenicRepository): JsonResponse
     {
         $credentials = json_decode($request->getContent(), true);
         $user = $userRepository->findOneBy(['email' => $credentials["username"]]);
@@ -42,22 +45,69 @@ class ApiDashboardController extends AbstractController
                     ])
                 ,Response::HTTP_BAD_REQUEST, [], true);
         }
+        $healthStatus = [];
+        $prescriptions = [];
+        $prescriptionMedications = [];
+        $allergenic = [];
+
+        foreach ($user->getCareSummary()->getHealthStatuses() as $value){
+            $healthStatus[] = [
+                "disease" => $value->getDisease(),
+                "description" => $value->getDescription(),
+                "status" => $value->getStatus()->getStatus(),
+            ];
+        }
+        foreach ($user->getCareSummary()->getPrescriptions() as $value){
+            $prescriptions[] = [
+                "beginDate" => $value->getCreatedAt(),
+                "endDate" => $value->getEndDate(),
+            ];
+            foreach ($value->getPrescriptionMedications() as $valuePm){
+                $prescriptionMedications[] = [
+                    "medication" => $valuePm->getMedication(),
+                    "description" => $valuePm->getDescription(),
+                    "beginDate" => $valuePm->getCreatedAt(),
+                    "endDate" => $valuePm->getEndMedication(),
+                ];
+            }
+        }
+
+        foreach ($user->getCareSummary()->getAllergenic() as $value){
+            $allergenic[] = [
+                "name" =>$value->getName(),
+            ];
+        }
+
+     /*   foreach ($user->getCareSummary()->getAllergenic() as $value){
+            $allergenic[] = [
+                "disease" => $value->getDisease(),
+                "description" => $value->getDescription(),
+                "status" => $value->getStatus()->getStatus(),
+            ];
+        }*/
+        //dd($user->getCareSummary()->getPrescriptions()[0]->getPrescriptionMedications()[0]);
+        //dd($user->getCareSummary()->getAllergenic());
+       // dd($allergenic);
         return new JsonResponse(json_encode(
                 [
                     "user" => [
                         "id" => $user->getId(),
                         "email" => $user->getEmail(),
                         "role" => $user->getRole(),
-                        "care_summary" => [
+                        "careSummary" => [
                             "firstname" => $user->getCareSummary()->getFirstname(),
                             "lastname" => $user->getCareSummary()->getLastname(),
-                            "number_ss" => $user->getCareSummary()->getNumberSs(),
+                            "numberSs" => $user->getCareSummary()->getNumberSs(),
                             "birthday" => $user->getCareSummary()->getBirthday(),
                             "description" => $user->getCareSummary()->getDescription(),
 
                         ],
-                        "doctor_referring" => $user->getCareSummary()->getDoctorReferring()->getEmail(),
-                        "gender" => $user->getCareSummary()->getGender()->getType()
+                        "doctorReferring" => $user->getCareSummary()->getDoctorReferring()->getEmail(),
+                        "gender" => $user->getCareSummary()->getGender()->getType(),
+                        "healthStatus" => $healthStatus,
+                        "prescriptions" => $prescriptions,
+                        "prescriptionMedication" => $prescriptionMedications,
+                        "allergenic" =>$allergenic
                     ],
                 ])
             ,Response::HTTP_OK, [], true);

@@ -1,44 +1,41 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class SignIn extends Component {
-    state = {
-        username: '',
-        password: '',
-        error: ''
-    };
+import {login} from "../../../services/api/auth/authServices";
 
-    handleInputChange = e => {
+const SignIn = () => {
+    const [user, setUser] = useState([])
+    const [authForm, setAuthForm] = useState({
+        username: 'client@medecin.fr',
+        password: 'client'
+    })
+    const [error, setError] = useState(false)
+
+    const handleInputChange = e => {
         const { name, value } = e.target;
-        this.setState({
+        setAuthForm({
+            ...authForm,
             [name]: value
         });
     };
 
-    handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        const { username, password } = this.state;
-        if (username === 'admin' && password === 'password') {
-            // Code à exécuter lorsque la connexion réussit
-            console.log('Connexion réussie');
+
+        if (authForm.username.length === 0 || authForm.password.length === 0) {
+            setError('Champs vide')
         } else {
-            // Code à exécuter lorsque la connexion échoue
-            this.setState({
-                error: 'Nom d\'utilisateur ou mot de passe incorrect'
-            });
+            await login(authForm, setUser, setError)
         }
     };
-
-    render() {
-        const { username, password, error } = this.state;
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={async (e) => await handleSubmit(e)}>
                 <label>
-                    Nom d'utilisateur :
+                    Email :
                     <input
                         type="text"
                         name="username"
-                        value={username}
-                        onChange={this.handleInputChange}
+                        value={authForm.username}
+                        onChange={(e) => handleInputChange(e)}
                     />
                 </label>
                 <label>
@@ -46,15 +43,14 @@ class SignIn extends Component {
                     <input
                         type="password"
                         name="password"
-                        value={password}
-                        onChange={this.handleInputChange}
+                        value={authForm.password}
+                        onChange={(e) => handleInputChange(e)}
                     />
                 </label>
                 <button type="submit">Se connecter</button>
-                {error && <div>{error}</div>}
+                {error !== false && <div>{error}</div>}
             </form>
         );
-    }
 }
 
 export default SignIn;
