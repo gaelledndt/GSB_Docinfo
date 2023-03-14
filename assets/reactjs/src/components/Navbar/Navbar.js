@@ -1,15 +1,17 @@
 import React from 'react';
 import '../../assets/styles/navbar/navbar.css';
 
-const Navbar = () => {
+function Navbar() {
     return (
-        <nav>
-            <h1 className="logo">GSB</h1>
-            <ul className="nav-links">
+        <nav className="navbar">
+            <div className="navbar-title">GSB - Votre domaine de santé</div>
+            <ul className="navbar-links">
                 <li><a href="#">Accueil</a></li>
+                <li><a href="#">Vos informations</a></li>
                 <li><a href="#">À propos</a></li>
-                <li><a href="#">Contact</a></li>
+                {/*<li><a href="#">Contact</a></li>*/}
             </ul>
+            <button>Connection/SignUp</button>
         </nav>
     );
 }

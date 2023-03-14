@@ -1,3 +1,5 @@
+@import "../../assets/reactjs/src/assets/styles/navbar/navbar.css";
+
 body {
-    background-color: lightgray;
+    background-color: #f8f5f5;
 }
