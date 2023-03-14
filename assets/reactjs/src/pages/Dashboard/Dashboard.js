@@ -44,7 +44,6 @@ function Dashboard() {
                                 <h2 style={{ color: '#fff' }}>{item.title}</h2>
                             </div>
                         </Link>
-                        {/*<p style={{ textAlign: 'center', marginTop: '10px' }}>{item.value}</p>*/}
                     </div>
                 ))}
             </div>
