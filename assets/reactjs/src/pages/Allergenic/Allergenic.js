@@ -1,25 +1,32 @@
 import React from 'react';
 import "../../assets/styles/allergenic/allergenic.css";
 
-function Allergenic() {
+function Allergenic({allergenic}) {
+    console.log('aller', allergenic)
     const allergies = ['Peanuts', 'Shellfish', 'Pollens'];
     return (
         <div>
             <h1>Vos allergies:</h1>
-            <table>
-                <thead>
-                <tr>
-                    <th>Les allergies</th>
-                </tr>
-                </thead>
-                <tbody>
-                {allergies.map((allergy, index) => (
-                    <tr key={index}>
-                        <td>{allergy}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+            {
+                allergenic?.length !== 0 ?
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Les allergies</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {allergenic.map((allergy, index) => (
+                            <tr key={index}>
+                                <td>{allergy.name}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                    :
+                    <p>Vous n'avez aucune allergie</p>
+            }
+
         </div>
     );
 }

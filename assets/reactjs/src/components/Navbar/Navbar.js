@@ -1,18 +1,30 @@
 import React from 'react';
 import '../../assets/styles/navbar/navbar.css';
 import Button from "./Button"
+import {Link} from "react-router-dom";
 
-function Navbar() {
+
+
+function Navbar({ user, setUser }) {
     return (
         <nav className="navbar">
             <div className="navbar-title">GSB - Votre domaine de santé</div>
+            {
+                user.length !== 0 &&
             <ul className="navbar-links">
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Vos informations</a></li>
-                <li><a href="#">À propos</a></li>
-                <li><a href="#">Mention légale</a></li>
+                <li><Link to="/dashboard">Accueil</Link></li>
+                <li><Link to="#">Vos informations</Link></li>
+                <li><Link to="#">À propos</Link></li>
+                <li><Link to="#">Mention légale</Link></li>
             </ul>
-            <Button label="Connexion" onClick={() => console.log("Connexion en cours...")} />
+            }
+            {
+                user.length !== 0 ?
+                    <Button label="Déconnexion" onClick={() => setUser([])} />
+                    :
+                    <Link to={'/'}>Connexion</Link>
+            }
+            {/*<Button label="Connexion" onClick={() => console.log("Connexion en cours...")} />*/}
         </nav>
     );
 }

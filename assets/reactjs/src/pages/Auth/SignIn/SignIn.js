@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {login} from '../../../services/api/auth/authServices';
 import medical from '../../../assets/styles/medical.png';
+import {useNavigate} from "react-router-dom";
 
-const SignIn = () => {
-    const [user, setUser] = useState([]);
+const SignIn = ({ setUser }) => {
+    const navigate = useNavigate()
+
     const [authForm, setAuthForm] = useState({
         username: 'client@medecin.fr',
         password: 'client',
@@ -24,7 +26,8 @@ const SignIn = () => {
         if (authForm.username.length === 0 || authForm.password.length === 0) {
             setError('Champs vide')
         } else {
-            await login(authForm, setUser, setError)
+            const isLogged = await login(authForm, setUser, setError)
+            isLogged ? navigate('/dashboard') : null
         }
     };
 

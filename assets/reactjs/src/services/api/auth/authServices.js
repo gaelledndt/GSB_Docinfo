@@ -9,18 +9,20 @@ export const login = async (data, setUser, setError) => {
             },
             body: JSON.stringify(data)
         })
-        console.log(response.ok)
         if(response.ok){
             const result = await response.json()
-            console.log(result)
-            setUser(result)
+            console.log("result", result.user)
+            setUser(result.user)
         }
         else {
             setError('Une erreur est survenu')
         }
+        return response.ok
+
     }
     catch (e){
         console.log(e.message)
+        throw e.message
     }
 
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../../assets/styles/dashboard/dashboard.css';
+import {Link} from "react-router-dom";
 
 function Dashboard() {
     const [data, setData] = useState([
@@ -9,6 +10,7 @@ function Dashboard() {
         },
         {
             title: 'Vos allergies',
+            link: '/allergenic',
             color: '#2ecc71'
         },
         {
@@ -37,9 +39,11 @@ function Dashboard() {
             <div style={{ display: 'flex', flexWrap: 'wrap'}}>
                 {data.map((item, index) => (
                     <div className='card' key={index} style={{ width: '25%', padding: '10px' }}>
-                        <div style={{ backgroundColor: item.color, height: '150px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <h2 style={{ color: '#fff' }}>{item.title}</h2>
-                        </div>
+                        <Link to={item.link}>
+                            <div style={{ backgroundColor: item.color, height: '150px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <h2 style={{ color: '#fff' }}>{item.title}</h2>
+                            </div>
+                        </Link>
                         {/*<p style={{ textAlign: 'center', marginTop: '10px' }}>{item.value}</p>*/}
                     </div>
                 ))}

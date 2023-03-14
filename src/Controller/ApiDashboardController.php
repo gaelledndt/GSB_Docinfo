@@ -32,7 +32,7 @@ class ApiDashboardController extends AbstractController
                              UserRepository $userRepository, AllergenicRepository $allergenicRepository): JsonResponse
     {
         $credentials = json_decode($request->getContent(), true);
-        dd($credentials);
+
         $user = $userRepository->findOneBy(['email' => $credentials["username"]]);
         $password = $this->passwordHash->isPasswordValid(
             $user,
