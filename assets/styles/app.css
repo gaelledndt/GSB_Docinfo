@@ -5,6 +5,9 @@
 /* Connection */
 @import "../../assets/reactjs/src/assets/styles/signup/signup.css";
 
+/*@import "../../assets/reactjs/src/assets/styles/medical.png";*/
+
 body {
-    background-color: #f8f5f5;
+   /*background: url("../../assets/reactjs/src/assets/styles/medical.png");*/
+    background:  url("../../assets/reactjs/src/assets/styles/medical.png") no-repeat fixed bottom right;
 }

@@ -7,7 +7,11 @@
     margin-top: 50px;
     font-family: 'Golos Text', sans-serif;
 }
-
+.signin-form-container--with-background {
+    /*background: no-repeat url("../medical.png");*/
+    background-size: 50vw 10vh;
+    /*background-position: center center;*/
+}
 .signin-label {
     margin-top: 20px;
     font-size: 20px;
