@@ -8,6 +8,9 @@
 /* Dashboard */
 @import "../../assets/reactjs/src/assets/styles/dashboard/dashboard.css";
 
+/* Allergenic */
+@import "../../assets/reactjs/src/assets/styles/allergenic/allergenic.css";
+
 /*@import "../../assets/reactjs/src/assets/styles/medical.png";*/
 
 body {
