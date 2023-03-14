@@ -6,3 +6,8 @@ h1 {
     font-family: 'Golos Text', sans-serif;
     color: #0d6efd;
 }
+
+.custom-link {
+    color: inherit;
+    text-decoration: none;
+}

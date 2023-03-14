@@ -3,6 +3,13 @@ import '../../assets/styles/dashboard/dashboard.css';
 import {Link} from "react-router-dom";
 
 function Dashboard() {
+    const CustomLink = ({ to, children }) => {
+        return (
+            <Link to={to} className="custom-link">
+                {children}
+            </Link>
+        );
+    };
     const [data, setData] = useState([
         {
             title: 'Vos tests',
@@ -39,11 +46,11 @@ function Dashboard() {
             <div style={{ display: 'flex', flexWrap: 'wrap'}}>
                 {data.map((item, index) => (
                     <div className='card' key={index} style={{ width: '25%', padding: '10px' }}>
-                        <Link to={item.link}>
+                        <CustomLink to={item.link}>
                             <div style={{ backgroundColor: item.color, height: '150px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                 <h2 style={{ color: '#fff' }}>{item.title}</h2>
                             </div>
-                        </Link>
+                        </CustomLink>
                     </div>
                 ))}
             </div>
