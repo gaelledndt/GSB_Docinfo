@@ -5,6 +5,9 @@
 /* Connection */
 @import "../../assets/reactjs/src/assets/styles/signup/signup.css";
 
+/* Dashboard */
+@import "../../assets/reactjs/src/assets/styles/dashboard/dashboard.css";
+
 /*@import "../../assets/reactjs/src/assets/styles/medical.png";*/
 
 body {

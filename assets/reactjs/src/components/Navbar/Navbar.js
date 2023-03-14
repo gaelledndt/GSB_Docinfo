@@ -10,7 +10,7 @@ function Navbar() {
                 <li><a href="#">Accueil</a></li>
                 <li><a href="#">Vos informations</a></li>
                 <li><a href="#">À propos</a></li>
-                {/*<li><a href="#">Contact</a></li>*/}
+                <li><a href="#">Mention légale</a></li>
             </ul>
             <Button label="Connexion" onClick={() => console.log("Connexion en cours...")} />
         </nav>
