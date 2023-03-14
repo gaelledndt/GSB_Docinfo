@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@500&display=swap');
+
+.signin-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    font-family: 'Golos Text', sans-serif;
+}
+
+.signin-label {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.signin-input {
+    display: block;
+    width: 300px;
+    height: 30px;
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 10px 5px 5px #0dacf0;
+}
+
+.signin-button {
+    display: block;
+    width: 150px;
+    height: 40px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.signin-button:hover {
+    background-color: #0062cc;
+}
+
+.signin-error {
+    color: white;
+    margin-top: 10px;
+    background-color: #fd4040;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 10px 5px 5px lightcoral;
+}

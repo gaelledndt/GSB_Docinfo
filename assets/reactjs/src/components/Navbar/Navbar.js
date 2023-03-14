@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../assets/styles/navbar/navbar.css';
+import Button from "./Button"
 
 function Navbar() {
     return (
@@ -11,7 +12,7 @@ function Navbar() {
                 <li><a href="#">À propos</a></li>
                 {/*<li><a href="#">Contact</a></li>*/}
             </ul>
-            <button>Connection/SignUp</button>
+            <Button label="Connexion" onClick={() => console.log("Connexion en cours...")} />
         </nav>
     );
 }
