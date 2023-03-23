@@ -34,15 +34,15 @@ class DashboardController extends AbstractDashboardController
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
         if ($this->getUser() === null){
+            dd('$this->getUser() === null');
             return $this->redirect('/login');
-        }elseif ($this->getUser()->getRole()->getSlug() !== 'medecin' ||
-            $this->getUser()->getRole()->getSlug() !== 'infirmer'
+        }elseif ($this->getUser()->getRole()->getSlug() === 'medecin' ||
+            $this->getUser()->getRole()->getSlug() === 'infirmier'
         )
         {
-            return $this->redirect('/');
-        }else{
             return $this->redirect($this->adminUrlGenerator->setController(UserCrudController::class)->generateUrl());
-
+        }else{
+            return $this->redirect('/');
         }
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
