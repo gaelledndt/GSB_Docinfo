@@ -1,13 +1,14 @@
 import React from 'react';
-import '../../assets/styles/legalnotice/legalnotice.css';
+//import "../../assets/styles/test/test.css";
 
-function Test() {
+function Test({}) {
     return (
         <div>
-            <h1>Vos tests</h1>
-        </div>
-    )
-}
+            <h1>Vos Tests:</h1>
 
+
+        </div>
+    );
+}
 
 export default Test;

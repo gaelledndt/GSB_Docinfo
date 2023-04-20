@@ -2,8 +2,6 @@ import React from 'react';
 import "../../assets/styles/allergenic/allergenic.css";
 
 function Allergenic({allergenic}) {
-    console.log('aller', allergenic)
-    const allergies = ['Peanuts', 'Shellfish', 'Pollens'];
     return (
         <div>
             <h1>Vos allergies:</h1>

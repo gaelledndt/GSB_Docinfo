@@ -13,6 +13,7 @@ function Dashboard() {
     const [data, setData] = useState([
         {
             title: 'Vos tests',
+            link: '/test',
             color: '#3498db'
         },
         {
@@ -22,14 +23,17 @@ function Dashboard() {
         },
         {
             title: 'Vos prescriptions',
+            link: '/prescription',
             color: '#f1c40f'
         },
         {
             title: 'Votre status médical',
+            link: '/medicalstatus',
             color: '#e67e22'
         },
         {
             title: 'Paramètres',
+            link: '/parameter',
             color: '#e74c3c'
 
         },
