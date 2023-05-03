@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\PrescriptionMedication;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -18,6 +19,11 @@ class PrescriptionMedicationCrudController extends AbstractCrudController
         return PrescriptionMedication::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInPlural('Les prescriptions médicales');
+    }
     public function configureFields(string $pageName): iterable
     {
         return [

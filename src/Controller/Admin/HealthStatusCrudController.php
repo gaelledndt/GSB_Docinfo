@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\HealthStatus;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -15,6 +16,12 @@ class HealthStatusCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return HealthStatus::class;
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInPlural('Status de santé');
     }
 
     public function configureFields(string $pageName): iterable

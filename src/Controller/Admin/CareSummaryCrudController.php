@@ -14,7 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 class CareSummaryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -22,6 +22,11 @@ class CareSummaryCrudController extends AbstractCrudController
         return CareSummary::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInPlural('Dossier de santé');
+    }
 
     public function configureFields(string $pageName): iterable
     {
@@ -47,8 +52,10 @@ class CareSummaryCrudController extends AbstractCrudController
                ->setLabel('Allergies')
                ->setEntryType(AllergenicForm::class),
             DateTimeField::new('created_at')
+                ->setLabel('Date de création')
                 ->hideOnForm(),
             DateTimeField::new('updated_at')
+                ->setLabel('Mise à jour le')
                 ->hideOnForm(),
         ];
     }

@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 class PrescriptionCrudController extends AbstractCrudController
 {
@@ -17,7 +18,11 @@ class PrescriptionCrudController extends AbstractCrudController
     {
         return Prescription::class;
     }
-
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInPlural('Les prescriptions');
+    }
     public function configureFields(string $pageName): iterable
     {
         return [

@@ -77,6 +77,7 @@ class ApiDashboardController extends AbstractController
             $allergenic[] = [
                 "name" =>$value->getName(),
             ];
+            //dd($allergenic);
         }
 
      /*   foreach ($user->getCareSummary()->getAllergenic() as $value){
@@ -88,7 +89,6 @@ class ApiDashboardController extends AbstractController
         }*/
         //dd($user->getCareSummary()->getPrescriptions()[0]->getPrescriptionMedications()[0]);
         //dd($user->getCareSummary()->getAllergenic());
-       // dd($allergenic);
         return new JsonResponse(json_encode(
                 [
                     "user" => [

@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 class RoleCrudController extends AbstractCrudController
 {
@@ -16,15 +17,24 @@ class RoleCrudController extends AbstractCrudController
         return Role::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInPlural('Role');
+    }
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')
             ->hideOnForm(),
-            TextField::new('role'),
-            DateTimeField::new('createdAt')->hideOnForm(),
-            DateTimeField::new('updatedAt')->hideOnForm(),
-            TextField::new('slug'),
+            TextField::new('role')
+             ->setLabel('Role'),
+            DateTimeField::new('createdAt')->hideOnForm()
+             ->setLabel('Date de création'),
+            DateTimeField::new('updatedAt')->hideOnForm()
+                ->setLabel('Mise à jour le'),
+            TextField::new('slug')
+                ->setLabel('Référence'),
         ];
     }
 

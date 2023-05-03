@@ -25,11 +25,9 @@ class AllergenicForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $choices = ['Option 1', 'Option 2', 'Option 3'];
         $builder
             ->add('name', ChoiceType::class, [
-                'choices' => $choices,
-                'multiple' => true,
+                'choices' => $this->getChoices(),
             ]);
     }
 
@@ -39,6 +37,7 @@ class AllergenicForm extends AbstractType
             'data_class' => Allergenic::class,
         ]);
     }
+
     private function getChoices(): array
     {
         $allergenic = $this->manager->getRepository(Allergenic::class)->findAll();

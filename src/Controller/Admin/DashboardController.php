@@ -59,61 +59,61 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Gsb - Application Médicale')
+            ->setTitle('GSB - Application Médicale')
             ->setLocales(['en', 'fr']);
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+       // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home', CareSummary::class);
 
         yield MenuItem::linkToUrl('Retour à l\' app', 'fa fa-return', '/');
 
+        /*              Compte               */
+        yield MenuItem::section('Comptes', 'fa fa-solid fa-id-card-clip');
         /*              ROLES               */
-        yield MenuItem::section('Gestion des roles', 'fa-brands fa-critical-role');
         yield MenuItem::subMenu('Roles', 'fa-solid fa-right-long')->setSubItems([
             MenuItem::linkToCrud('Liste des roles', 'fa fa-list', Role::class),
         ]);
+        /*              ROLES               */
+        yield MenuItem::subMenu('Genre', 'fa-solid fa-right-long')->setSubItems([
+            MenuItem::linkToCrud('Liste des genres', 'fa fa-list', Gender::class),
+        ]);
         /*              USERS               */
-        yield MenuItem::section('Gestion des utilisateurs', 'fa-solid fa-users');
         yield MenuItem::subMenu('Utilisateurs', 'fa-solid fa-right-long')->setSubItems([
             MenuItem::linkToCrud('Liste des utilisateurs', 'fa fa-list', User::class),
         ]);
         /*              CareSummary               */
-        yield MenuItem::section('Gestion des fiches de renseignement', 'fa fa-child');
-        yield MenuItem::subMenu('Fiches de renseignements', 'fa-solid fa-right-long')->setSubItems([
+        yield MenuItem::section('Informations médicales', 'fa fa-solid fa-passport');
+        yield MenuItem::subMenu('Dossiers médicales', 'fa-solid fa-right-long')->setSubItems([
             MenuItem::linkToCrud('Liste des fiches de renseignements', 'fa fa-list', CareSummary::class),
         ]);
-        /*              Allergenic               */
-        yield MenuItem::section('Gestion des Allergies', 'fa fa-child');
-        yield MenuItem::subMenu('Fiches des allergies', 'fa-solid fa-right-long')->setSubItems([
-            MenuItem::linkToCrud('Liste des fiches de allergies', 'fa fa-list', Allergenic::class),
-        ]);
         /*              Health Status  & Status             */
-        yield MenuItem::section("Gestion de l'état de santé", 'fa fa-child');
-        yield MenuItem::subMenu('Fiches des états', 'fa-solid fa-right-long')->setSubItems([
+        yield MenuItem::subMenu('États de santé', 'fa-solid fa-right-long')->setSubItems([
             MenuItem::linkToCrud("Liste des états de santé", 'fa fa-list', HealthStatus::class),
+        ]);
+        yield MenuItem::subMenu('Gestion des status', 'fa-solid fa-right-long')->setSubItems([
             MenuItem::linkToCrud('Liste des status', 'fa fa-list', Status::class),
         ]);
+        /*              Allergenic               */
+        yield MenuItem::section('Les Allergies', 'fa fa-solid fa-bacterium');
+        yield MenuItem::subMenu('Gestion des allergies', 'fa-solid fa-right-long')->setSubItems([
+            MenuItem::linkToCrud('Liste des fiches de allergies', 'fa fa-list', Allergenic::class),
+        ]);
         /*              Presciption   &  Prescription Medication                 */
-        yield MenuItem::section('Gestion des Prescription', 'fa fa-child');
-        yield MenuItem::subMenu('Fiches des prescriptions', 'fa-solid fa-right-long')->setSubItems([
+        yield MenuItem::section('Prescriptions', 'fa fa-solid fa-receipt');
+        yield MenuItem::subMenu('Gestion des prescriptions', 'fa-solid fa-right-long')->setSubItems([
             MenuItem::linkToCrud('Liste des prescriptions', 'fa fa-list', Prescription::class),
             MenuItem::linkToCrud('Liste des prescritpions médicales', 'fa fa-list', PrescriptionMedication::class),
 
         ]);
-        /*              Gender               */
-        yield MenuItem::section('Gestion des Genre', 'fa fa-child');
-        yield MenuItem::subMenu('Fiches des genre', 'fa-solid fa-right-long')->setSubItems([
-            MenuItem::linkToCrud('Liste des genre', 'fa fa-list', Gender::class),
-        ]);
         /*              Test Result     &  Test Result Type                 */
-        yield MenuItem::section('Gestion des résultats de test', 'fa fa-child');
-        yield MenuItem::subMenu('Fiches des résultats de test', 'fa-solid fa-right-long')->setSubItems([
+        yield MenuItem::section('Tests', ' fa fa-solid fa-book-medical');
+        yield MenuItem::subMenu('Résultats des tests', 'fa-solid fa-right-long')->setSubItems([
             MenuItem::linkToCrud('Liste des résultats de test', 'fa fa-list', TestResults::class),
-            MenuItem::linkToCrud('Liste des types de test', 'fa fa-list', TestResultType::class),
-
         ]);
-
+        yield MenuItem::subMenu('Types de tests', 'fa-solid fa-right-long')->setSubItems([
+            MenuItem::linkToCrud('Liste des types de test', 'fa fa-list', TestResultType::class),
+        ]);
     }
 }

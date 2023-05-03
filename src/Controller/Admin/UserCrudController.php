@@ -39,6 +39,11 @@ class UserCrudController extends AbstractCrudController
 
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInPlural('Les utilisateurs');
+    }
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -55,8 +60,10 @@ class UserCrudController extends AbstractCrudController
                 ->onlyOnForms(),
             AssociationField::new('role')
                 ->setRequired($pageName === Crud::PAGE_NEW),
-            DateTimeField::new('createdAt')->hideOnForm(),
-            DateTimeField::new('updatedAt')->hideOnForm(),
+            DateTimeField::new('createdAt')->hideOnForm()
+                ->setLabel('Date de création'),
+            DateTimeField::new('updatedAt')->hideOnForm()
+                ->setLabel('Mise à jour le'),
         ];
     }
 
